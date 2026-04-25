@@ -1,0 +1,263 @@
+/* ============================================================
+   LibraryMS — Main Stylesheet
+   Aesthetic: refined institutional with warm editorial tones
+   Fonts: Plus Jakarta Sans (UI) + Fraunces (display)
+   ============================================================ */
+
+:root {
+  --brand:       #1a3a4a;
+  --brand-light: #2a5570;
+  --accent:      #c8873a;
+  --accent-soft: #f5e6d3;
+  --surface:     #f8f6f2;
+  --card-bg:     #ffffff;
+  --border:      #e8e3db;
+  --text:        #1e2a30;
+  --text-muted:  #7a8a92;
+  --sidebar-w:   260px;
+  --topbar-h:    60px;
+  --radius:      10px;
+  --shadow:      0 2px 16px rgba(26,58,74,.08);
+  --shadow-lg:   0 8px 40px rgba(26,58,74,.14);
+  font-size: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--surface);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+}
+
+/* ── Sidebar ──────────────────────────────────────────── */
+#sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--brand);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 1000;
+  overflow-y: auto;
+  transition: transform .3s ease;
+}
+
+.sidebar-brand {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  display: flex; align-items: center;
+}
+.sidebar-brand a {
+  display: flex; align-items: center; gap: 10px;
+  color: #fff; text-decoration: none;
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem; font-weight: 600; letter-spacing: -.3px;
+}
+.sidebar-brand a i { font-size: 1.5rem; color: var(--accent); }
+
+.sidebar-user {
+  padding: 16px 20px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.s-avatar i { font-size: 2rem; color: rgba(255,255,255,.5); }
+.s-name { color: #fff; font-weight: 600; font-size: .88rem; }
+.s-role { color: rgba(255,255,255,.5); font-size: .75rem; text-transform: capitalize; margin-top: 1px; }
+
+.sidebar-section {
+  padding: 16px 20px 6px;
+  color: rgba(255,255,255,.35);
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: 1.2px; text-transform: uppercase;
+}
+
+.s-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  color: rgba(255,255,255,.7);
+  text-decoration: none;
+  font-size: .875rem; font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: all .2s;
+}
+.s-link:hover { color: #fff; background: rgba(255,255,255,.06); }
+.s-link.active {
+  color: #fff;
+  background: rgba(200,135,58,.15);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+.s-link i { font-size: 1rem; width: 20px; }
+
+.sidebar-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 999;
+  display: none;
+}
+.sidebar-overlay.show { display: block; }
+
+/* ── Main layout ──────────────────────────────────────── */
+#main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  display: flex; flex-direction: column;
+  min-height: 100vh;
+  transition: margin-left .3s;
+}
+
+/* ── Topbar ──────────────────────────────────────────── */
+.topbar {
+  height: var(--topbar-h);
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 24px; gap: 12px;
+  position: sticky; top: 0; z-index: 100;
+}
+.topbar-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem; font-weight: 600;
+  color: var(--brand); flex: 1;
+}
+.sidebar-toggle {
+  display: none;
+  background: none; border: none;
+  font-size: 1.2rem; color: var(--text-muted);
+  cursor: pointer; padding: 4px 8px;
+}
+
+/* ── Page content ────────────────────────────────────── */
+.page-content { padding: 28px 28px; flex: 1; }
+
+/* ── Stat cards ──────────────────────────────────────── */
+.stat-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 22px 24px;
+  display: flex; align-items: center; gap: 18px;
+  box-shadow: var(--shadow);
+  transition: transform .2s, box-shadow .2s;
+  position: relative; overflow: hidden;
+}
+.stat-card::after {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--stat-color, var(--accent));
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.stat-icon {
+  width: 54px; height: 54px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  background: var(--stat-bg, var(--accent-soft));
+  color: var(--stat-color, var(--accent));
+  flex-shrink: 0;
+}
+.stat-num {
+  font-size: 1.85rem; font-weight: 700;
+  font-family: 'Fraunces', serif;
+  line-height: 1; color: var(--brand);
+}
+.stat-label { font-size: .8rem; color: var(--text-muted); margin-top: 3px; font-weight: 500; }
+
+/* ── Cards ────────────────────────────────────────────── */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow);
+}
+.card-header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 16px 20px !important;
+  font-weight: 600; font-size: .9rem; color: var(--brand);
+  display: flex; align-items: center; gap: 8px;
+}
+.card-body { padding: 20px !important; }
+
+/* ── Tables ──────────────────────────────────────────── */
+.table { font-size: .85rem; }
+.table thead th {
+  background: var(--surface) !important;
+  color: var(--text-muted) !important;
+  font-weight: 600; font-size: .75rem;
+  text-transform: uppercase; letter-spacing: .6px;
+  border-bottom: 2px solid var(--border) !important;
+  white-space: nowrap;
+}
+.table tbody tr { transition: background .15s; }
+.table tbody tr:hover { background: rgba(200,135,58,.04) !important; }
+.table td { vertical-align: middle; border-bottom: 1px solid var(--border) !important; padding: 10px 12px !important; }
+.table th { padding: 10px 12px !important; }
+
+/* ── Forms ────────────────────────────────────────────── */
+.form-control, .form-select {
+  border-color: var(--border);
+  font-size: .875rem;
+  border-radius: 8px;
+  padding: .45rem .75rem;
+  transition: border-color .2s, box-shadow .2s;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(200,135,58,.15);
+  outline: none;
+}
+.form-label { font-size: .8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+
+/* ── Buttons ──────────────────────────────────────────── */
+.btn { border-radius: 8px; font-weight: 600; font-size: .8rem; padding: .42rem .9rem; }
+.btn-primary { background: var(--brand); border-color: var(--brand); }
+.btn-primary:hover { background: var(--brand-light); border-color: var(--brand-light); }
+.btn-accent { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-accent:hover { background: #b37530; border-color: #b37530; color: #fff; }
+
+/* ── Badges ──────────────────────────────────────────── */
+.badge { font-weight: 600; font-size: .72rem; border-radius: 6px; padding: .3em .65em; }
+
+/* ── Login page ──────────────────────────────────────── */
+.login-wrap {
+  min-height: 100vh; display: flex;
+  align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 60%, #1a4a5a 100%);
+}
+.login-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 44px 40px;
+  width: 100%; max-width: 420px;
+  box-shadow: var(--shadow-lg);
+}
+.login-logo { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 600; color: var(--brand); }
+.login-logo i { color: var(--accent); }
+.login-sub { color: var(--text-muted); font-size: .875rem; margin-top: 4px; }
+
+/* ── Charts ──────────────────────────────────────────── */
+.chart-wrap { position: relative; height: 240px; }
+
+/* ── Print ───────────────────────────────────────────── */
+@media print {
+  #sidebar, .topbar, .btn, .no-print, .dataTables_filter,
+  .dataTables_length, .dataTables_paginate, nav { display: none !important; }
+  #main { margin-left: 0 !important; }
+  .card { box-shadow: none !important; border: 1px solid #ccc !important; }
+  body { background: #fff; }
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 991.98px) {
+  #sidebar { transform: translateX(-100%); }
+  #sidebar.open { transform: translateX(0); }
+  #main { margin-left: 0; }
+  .sidebar-toggle { display: block; }
+  .page-content { padding: 16px; }
+}
